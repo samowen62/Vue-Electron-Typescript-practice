@@ -8,13 +8,12 @@
     </p>
     <h3>Installed CLI Plugins</h3>
     <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
+      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript" target="_blank" rel="noopener">typescript</a></li>
     </ul>
     <h3>Essential Links</h3>
     <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
+      <ListItem link="https://vuejs.org" text="Core Docs"></ListItem>
+      <ListItem link="https://forum.vuejs.org" text="Forum"></ListItem>
       <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
       <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
       <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
@@ -30,11 +29,27 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import ListItem from './ListItem.vue';
+
+@Component({
+  components: {
+    ListItem,
+  },
+})
+export default class HelloWorld extends Vue {
+  @Prop() private msg!: string;
+  private testAddon: any;
+  private testAddonMsg: string = "";
+  private testAddonNumber: number = 0;
+
+  constructor(){
+    super()
+
+    this.testAddon = __non_webpack_require__('C:/Projects/ElectronTest/testproj/build/Release/testaddon.node')
+    this.testAddonMsg = this.testAddon.hello();
+    this.testAddonNumber = this.testAddon.add(4, 8)
   }
 }
 </script>
